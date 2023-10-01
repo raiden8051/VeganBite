@@ -7,7 +7,7 @@ function Navbar() {
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="https://github.com/raiden8051/VeganSpice/commit/2f816bd945e09ac96f18485f3a98b15d1a3a1e85?diff=unified" class="flex items-center">
         {/* <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" /> */}
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Vegan Spice</span>
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Vegan Bite</span>
     </a>
     <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
         <span class="sr-only">Open main menu</span>
