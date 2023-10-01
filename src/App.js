@@ -9,7 +9,7 @@ function App() {
     <div className="App h-full">
       <Router>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/VeganBite" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/menu" element={<Menu />} />
         </Routes>
