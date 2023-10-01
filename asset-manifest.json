@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/VeganBite/index.html/static/css/main.8adc4d53.css",
-    "main.js": "/VeganBite/index.html/static/js/main.034e7485.js",
-    "static/js/787.dbe251f9.chunk.js": "/VeganBite/index.html/static/js/787.dbe251f9.chunk.js",
-    "index.html": "/VeganBite/index.html/index.html",
-    "main.8adc4d53.css.map": "/VeganBite/index.html/static/css/main.8adc4d53.css.map",
-    "main.034e7485.js.map": "/VeganBite/index.html/static/js/main.034e7485.js.map",
-    "787.dbe251f9.chunk.js.map": "/VeganBite/index.html/static/js/787.dbe251f9.chunk.js.map"
+    "main.css": "/VeganBite/static/css/main.8adc4d53.css",
+    "main.js": "/VeganBite/static/js/main.93513539.js",
+    "static/js/787.dbe251f9.chunk.js": "/VeganBite/static/js/787.dbe251f9.chunk.js",
+    "index.html": "/VeganBite/index.html",
+    "main.8adc4d53.css.map": "/VeganBite/static/css/main.8adc4d53.css.map",
+    "main.93513539.js.map": "/VeganBite/static/js/main.93513539.js.map",
+    "787.dbe251f9.chunk.js.map": "/VeganBite/static/js/787.dbe251f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8adc4d53.css",
-    "static/js/main.034e7485.js"
+    "static/js/main.93513539.js"
   ]
 }
