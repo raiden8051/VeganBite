@@ -4,6 +4,11 @@ const router = express.Router();
 const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const jwtSecretKey =
+  "IxV075P9rXK0BD5RRNjpOJsSCt+uRjnr1vK3HnGsU268BC4qwcyM3/wzrWYNUZ3X";
+
 router.post(
   "/createuser",
   [
@@ -17,18 +22,27 @@ router.post(
       return res.status(400).json({ errors: validationError.array() });
     }
 
-    try {
-      await User.create({
-        name: req.body.name,
-        location: req.body.location,
-        password: req.body.password,
-        email: req.body.email,
-      });
+    const salt = await bcrypt.genSalt(10);
+    let securePassword = await bcrypt.hash(req.body.password, salt);
 
-      return res.json({ success: true });
+    try {
+      let email = req.body.email;
+      let userData = await User.findOne({ email });
+
+      if (!userData) {
+        await User.create({
+          name: req.body.name,
+          location: req.body.location,
+          password: securePassword,
+          email: req.body.email,
+        });
+
+        return res.json({ success: true, message: "Done" });
+      } else {
+        return res.json({ success: false, message: "Email already exists" });
+      }
     } catch (error) {
-      console.log(error);
-      return res.json({ success: false });
+      return res.json({ success: false, message: "System error" });
     }
   }
 );
@@ -52,8 +66,18 @@ router.post(
       if (!userData) {
         return res.status(400).json({ errors: validationError.array() });
       } else {
-        if (req.body.password === userData.password) {
-          return res.json({ success: true });
+        let pwdCompare = await bcrypt.compare(
+          req.body.password,
+          userData.password
+        );
+        if (pwdCompare) {
+          let data = {
+            user: {
+              id: userData.id,
+            },
+          };
+          let authToken = jwt.sign(data, jwtSecretKey);
+          return res.json({ success: true, authToken: authToken });
         } else {
           return res.json({ success: false });
         }

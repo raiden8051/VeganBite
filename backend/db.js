@@ -7,7 +7,7 @@ const connectDB = () => {
     .connect(mongoURL)
     .then(() => {
       // if all is ok we will be here
-      console.log("success");
+      console.log("Connection to database established");
     })
     .catch((err) => {
       // we will not be here...

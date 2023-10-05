@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import logo from "../assets/images/logo_main.png";
-import { Link } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [credential, setCredential] = useState({
     email: "",
     password: "",
   });
+  let navigate = useNavigate();
 
   const handleChange = (e) => {
     setCredential({ ...credential, [e.target.name]: e.target.value });
@@ -26,9 +27,13 @@ export default function Login() {
       }),
     });
     const data = await response.json();
-    console.log(data);
 
     if (!data.success) alert("Email or passowrd incorrect");
+
+    if (data.success) {
+      localStorage.setItem("authToken", data.authToken);
+      navigate("/");
+    }
   };
 
   return (
