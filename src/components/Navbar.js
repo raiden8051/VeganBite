@@ -1,8 +1,9 @@
 import React from "react";
 import logo from "../assets/images/logo_main.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  let navigate = useNavigate();
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -96,20 +97,44 @@ function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/login"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/createuser"
-                  className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-                  aria-current="page"
-                >
-                  SignUp
-                </Link>
+                {!localStorage.getItem("authToken") ? (
+                  <Link
+                    to="/login"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Login
+                  </Link>
+                ) : (
+                  <Link
+                    onClick={() => {
+                      localStorage.removeItem("authToken");
+                      navigate("/");
+                    }}
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Logout
+                  </Link>
+                )}
+                {!localStorage.getItem("authToken") && (
+                  <Link
+                    to="/createuser"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    aria-current="page"
+                  >
+                    SignUp
+                  </Link>
+                )}
               </li>
+              {localStorage.getItem("authToken") && (
+                <li>
+                  <Link
+                    to="/cart"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Cart
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link
                   to="/menu"
