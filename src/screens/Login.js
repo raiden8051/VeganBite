@@ -28,7 +28,7 @@ export default function Login() {
     });
     const data = await response.json();
 
-    if (!data.success) alert("Email or passowrd incorrect");
+    if (!data.success) alert("Emai or passowrd incorrect");
 
     if (data.success) {
       localStorage.setItem("authToken", data.authToken);
