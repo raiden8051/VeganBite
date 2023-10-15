@@ -7,7 +7,7 @@ import Signup from "./screens/Signup";
 
 function App() {
   return (
-    <div className="App h-full">
+    <div className="App">
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
