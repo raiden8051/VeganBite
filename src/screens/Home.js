@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import FoodSection from "../components/FoodSection";
 import { useContext } from "react";
 import DataContext from "../Context/DataContext";
-
 export default function Home() {
   const dataContext = useContext(DataContext);
 
