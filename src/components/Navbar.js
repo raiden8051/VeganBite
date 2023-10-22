@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../assets/images/logo_main.png";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import DataContext from "../Context/DataContext";
+import "./styles.css";
 
 function Navbar() {
   let navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const dataContext = useContext(DataContext);
+  const obj = dataContext?.foodData;
+
+  useEffect(() => {
+    if (search !== "") {
+      console.log("data", search);
+      let data = obj.filter((value) => {
+        return search === ""
+          ? ""
+          : value.name.toLowerCase().includes(search.toLowerCase());
+      });
+
+      dataContext.setFoodData(data);
+    }
+  }, [search]);
+
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
+      <nav className="bg-white border-gray-200 dark:bg-gray-900 navbar-style">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/" className="flex items-center">
             <img src={logo} className="h-8 mr-3" alt="Flowbite Logo" />
@@ -75,6 +94,8 @@ function Navbar() {
                       className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Find"
                       required
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
                     />
                     <button
                       type="submit"
@@ -115,6 +136,8 @@ function Navbar() {
                     Logout
                   </Link>
                 )}
+              </li>
+              {/* <li>
                 {!localStorage.getItem("authToken") && (
                   <Link
                     to="/createuser"
@@ -124,15 +147,18 @@ function Navbar() {
                     SignUp
                   </Link>
                 )}
-              </li>
+              </li> */}
               {localStorage.getItem("authToken") && (
                 <li>
                   <Link
                     to="/cart"
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
-                    Cart
+                    Cart{" "}
                   </Link>
+                  <div className="cart-notification-div">
+                    {dataContext.cartItem.length}
+                  </div>
                 </li>
               )}
               <li>
