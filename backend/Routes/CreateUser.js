@@ -77,7 +77,11 @@ router.post(
             },
           };
           let authToken = jwt.sign(data, jwtSecretKey);
-          return res.json({ success: true, authToken: authToken });
+          return res.json({
+            success: true,
+            authToken: authToken,
+            id: userData.id,
+          });
         } else {
           return res.json({ success: false });
         }

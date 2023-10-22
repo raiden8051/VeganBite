@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect } from "react";
 import "./FoodCard.css";
@@ -8,9 +9,34 @@ export default function FoodCard({ foodObj }) {
   const dataContext = useContext(DataContext);
 
   const foodData = dataContext?.foodData;
-
-  const handleAddToCart = (itemId) => {
+  const handleAddToCart = async (itemId) => {
     dataContext.setCartItem((prev) => [...prev, itemId]);
+  };
+
+  useEffect(() => {
+    if (dataContext.cartItem.length > 0) updateCartItems();
+  }, [dataContext.cartItem]);
+
+  const updateCartItems = async () => {
+    let user = localStorage?.getItem("userId");
+
+    const response = await fetch("http://localhost:3001/api/updatecart", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: user,
+        cartItems: dataContext.cartItem,
+      }),
+    });
+    const data = await response.json();
+
+    if (!data.success) alert("Something went wrong");
+
+    if (data.success) {
+      console.log(data);
+    }
   };
 
   const renderItems = (value, key) => {
