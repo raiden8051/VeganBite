@@ -31,7 +31,6 @@ export default function Login() {
     if (!data.success) alert("Emai or passowrd incorrect");
 
     if (data.success) {
-      console.log(data);
       localStorage.setItem("authToken", data.authToken);
       localStorage.setItem("userId", data.id);
       navigate("/");

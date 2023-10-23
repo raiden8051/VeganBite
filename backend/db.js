@@ -13,7 +13,7 @@ const connectDB = async () => {
           global.foodData = res;
         })
         .catch((err) => {
-          console.log("eeror");
+          console.log("error");
         });
     })
     .catch((err) => {
