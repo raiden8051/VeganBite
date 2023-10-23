@@ -7,6 +7,7 @@ import Spinner from "../Spinner/Spinner";
 
 export default function FoodCard({ foodObj }) {
   const dataContext = useContext(DataContext);
+  const userId = localStorage?.getItem("userId");
 
   const foodData = dataContext?.foodData;
   const handleAddToCart = async (itemId) => {
@@ -18,7 +19,31 @@ export default function FoodCard({ foodObj }) {
   }, [dataContext.cartItem]);
 
   const updateCartItems = async () => {
-    let user = localStorage?.getItem("userId");
+    const response = await fetch("http://localhost:3001/api/updatecart", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+        cartItems: dataContext.cartItem,
+      }),
+    });
+    const data = await response.json();
+
+    if (!data.success) alert("Something went wrong");
+
+    if (data.success) {
+      console.log(data);
+    }
+  };
+
+  const handleItemDelete = async (id) => {
+    let cd = dataContext.cartItem;
+    cd = cd.filter((value) => {
+      return value !== id;
+    });
+    dataContext.setCartItem(cd);
 
     const response = await fetch("http://localhost:3001/api/updatecart", {
       method: "PUT",
@@ -26,8 +51,8 @@ export default function FoodCard({ foodObj }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: user,
-        cartItems: dataContext.cartItem,
+        userId: userId,
+        cartItems: cd,
       }),
     });
     const data = await response.json();
@@ -81,6 +106,14 @@ export default function FoodCard({ foodObj }) {
               />
             </svg>
           </button>
+          {dataContext.cartItem.includes(value._id) && (
+            <button
+              onClick={() => handleItemDelete(value._id)}
+              className="delete-cart-item-button"
+            >
+              Delete
+            </button>
+          )}
         </div>
       </div>
     );

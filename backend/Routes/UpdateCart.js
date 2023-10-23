@@ -32,4 +32,19 @@ router.put("/updatecart", async (req, res) => {
   }
 });
 
+router.post("/getcart", async (req, res) => {
+  try {
+    let userId = req.body.userId;
+
+    let _hasId = await cartModel.findOne({ userId });
+
+    if (_hasId) {
+      return res.json({ success: true, data: _hasId });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: "System error" });
+  }
+});
+
 module.exports = router;

@@ -23,6 +23,25 @@ export default function Home() {
       dataContext.setIsLoading(false);
       dataContext.setError(["Failed to load data. Check your connection"]);
     }
+
+    if (localStorage.getItem("userId")) {
+      let id = localStorage.getItem("userId");
+
+      try {
+        const response = await fetch("http://localhost:3001/api/getcart", {
+          method: "POST",
+          body: JSON.stringify({ userId: id }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        dataContext.setCartItem(data?.data?.cartItems);
+      } catch (err) {
+        // dataContext.setIsLoading(false);
+        dataContext.setError(["Failed to load data. Check your connection"]);
+      }
+    }
   };
   useEffect(() => {
     loadData();

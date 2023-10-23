@@ -12,7 +12,6 @@ function Navbar() {
 
   useEffect(() => {
     if (search !== "") {
-      console.log("data", search);
       let data = obj.filter((value) => {
         return search === ""
           ? ""

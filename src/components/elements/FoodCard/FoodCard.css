@@ -8,9 +8,15 @@
     flex-direction: row;
     gap: 50px;
     flex-wrap: wrap;
-    padding: 50px;
+    padding: 120px 50px 50px 50px;
     justify-content: space-around;
 }
 .food-display{
     display: flex;
+}
+.delete-cart-item-button{
+    background-color: crimson;
+    border-radius: 6px;
+    padding: 6px;
+    color: white;
 }
