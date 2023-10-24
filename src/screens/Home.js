@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import FoodSection from "../components/FoodSection";
+import FoodSection from "../components/FoodSection/FoodSection";
 import { useContext } from "react";
 import DataContext from "../Context/DataContext";
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
 
   const loadData = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/displayData", {
+      const response = await fetch("http://localhost:3001/api/displaydata", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,6 +23,43 @@ export default function Home() {
       dataContext.setIsLoading(false);
       dataContext.setError(["Failed to load data. Check your connection"]);
     }
+
+    try {
+      const response = await fetch("http://localhost:3001/api/restaurants", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      dataContext.setIsLoading(false);
+      dataContext.setError([]);
+      dataContext.setRestaurants(data);
+    } catch (err) {
+      dataContext.setIsLoading(false);
+      dataContext.setError(["Failed to load data. Check your connection"]);
+    }
+
+    // try {
+    //   const response = await fetch(
+    //     "http://localhost:3001/api/displaydatacategory",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+    //   const data = await response.json();
+    //   console.log("raiden", data);
+    //   dataContext.setIsLoading(false);
+    //   dataContext.setError([]);
+    //   dataContext.setFoodCategory(data);
+    // } catch (err) {
+    //   dataContext.setIsLoading(false);
+    //   dataContext.setError(["Failed to load data. Check your connection"]);
+    // }
 
     if (localStorage.getItem("userId")) {
       let id = localStorage.getItem("userId");
