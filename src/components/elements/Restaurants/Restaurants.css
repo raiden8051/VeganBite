@@ -1,0 +1,7 @@
+.rest-rating-div{
+    display: flex;
+    color: azure;
+}
+.rest-rating-div span{
+    color: green;
+}
