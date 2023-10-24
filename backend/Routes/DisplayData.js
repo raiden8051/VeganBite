@@ -17,4 +17,12 @@ router.post("/displaydatacategory", (req, res) => {
   }
 });
 
+router.post("/restaurants", (req, res) => {
+  try {
+    res.send(global.restaurants);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;

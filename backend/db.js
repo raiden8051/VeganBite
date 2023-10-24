@@ -23,6 +23,14 @@ const connectDB = async () => {
         .catch((err) => {
           console.log("error");
         });
+
+      await getRestaurants()
+        .then((res) => {
+          global.restaurants = res;
+        })
+        .catch((err) => {
+          console.log("error");
+        });
     })
     .catch((err) => {
       // we will not be here...
@@ -50,6 +58,21 @@ function getFoodDataCategory() {
   return new Promise(function (resolve, reject) {
     mongoose.connection.db
       .collection("food_category_master")
+      .find({})
+      .toArray()
+      .then((res) => {
+        return resolve(res);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+}
+
+function getRestaurants() {
+  return new Promise(function (resolve, reject) {
+    mongoose.connection.db
+      .collection("restaurants")
       .find({})
       .toArray()
       .then((res) => {

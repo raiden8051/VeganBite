@@ -25,24 +25,41 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/displaydatacategory",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("http://localhost:3001/api/restaurants", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
-      console.log("raiden", data);
+      console.log(data);
       dataContext.setIsLoading(false);
       dataContext.setError([]);
-      dataContext.setFoodCategory(data);
+      dataContext.setRestaurants(data);
     } catch (err) {
       dataContext.setIsLoading(false);
       dataContext.setError(["Failed to load data. Check your connection"]);
     }
+
+    // try {
+    //   const response = await fetch(
+    //     "http://localhost:3001/api/displaydatacategory",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+    //   const data = await response.json();
+    //   console.log("raiden", data);
+    //   dataContext.setIsLoading(false);
+    //   dataContext.setError([]);
+    //   dataContext.setFoodCategory(data);
+    // } catch (err) {
+    //   dataContext.setIsLoading(false);
+    //   dataContext.setError(["Failed to load data. Check your connection"]);
+    // }
 
     if (localStorage.getItem("userId")) {
       let id = localStorage.getItem("userId");
