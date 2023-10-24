@@ -8,9 +8,17 @@ const connectDB = async () => {
     .then(async () => {
       // if all is ok we will be here
       console.log("Connection to database established");
-      await getUsers()
+      await getFoodData()
         .then((res) => {
           global.foodData = res;
+        })
+        .catch((err) => {
+          console.log("error");
+        });
+
+      await getFoodDataCategory()
+        .then((res) => {
+          global.foodDataCategory = res;
         })
         .catch((err) => {
           console.log("error");
@@ -23,10 +31,25 @@ const connectDB = async () => {
     });
 };
 
-function getUsers() {
+function getFoodData() {
   return new Promise(function (resolve, reject) {
     mongoose.connection.db
       .collection("food_master")
+      .find({})
+      .toArray()
+      .then((res) => {
+        return resolve(res);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+}
+
+function getFoodDataCategory() {
+  return new Promise(function (resolve, reject) {
+    mongoose.connection.db
+      .collection("food_category_master")
       .find({})
       .toArray()
       .then((res) => {
