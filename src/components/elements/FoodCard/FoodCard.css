@@ -3,7 +3,7 @@
     width: 500px;
     background-size: cover;
 }
-.food-display-div{
+.food-cards{
     display: flex;
     flex-direction: row;
     gap: 50px;
