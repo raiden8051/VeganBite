@@ -1,8 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./RestaurantDetails.css";
 import iconVeg from "../../../assets/images/icon-veg.png";
-function RestaurantDetails(props) {
-  const menu = props.menu;
+import DataContext from "../../../Context/DataContext";
+import { FecthData, isObjEmpty } from "../../utils/Utils";
+function RestaurantDetails() {
+  const dataContext = useContext(DataContext);
+
+  const [menu, setMenu] = useState({});
+
+  useEffect(() => {
+    if (isObjEmpty(dataContext.currentMenu)) {
+      FecthData("http://localhost:3001/api/restaurants", "POST")
+        .then((data) => {
+          dataContext.setIsLoading(false);
+          dataContext.setError([]);
+          dataContext.setRestaurants(data);
+          let restId = localStorage.getItem("selectedRestaurantId");
+          setMenu(data.filter((value) => restId === value._id)[0].menu);
+        })
+        .catch((err) => {
+          dataContext.setIsLoading(false);
+          dataContext.setError(["Failed to load data. Check your connection"]);
+        });
+    } else {
+      setMenu(dataContext.currentMenu);
+    }
+  }, []);
 
   const [accordian, setActiveAccordain] = useState(-1);
   const toggleAccordian = (key) => {
@@ -12,7 +35,6 @@ function RestaurantDetails(props) {
     }
     setActiveAccordain(key);
   };
-  console.log("gk-2", props);
   return (
     <>
       <div className="accordian">

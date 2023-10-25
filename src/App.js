@@ -9,7 +9,6 @@ import { useContext } from "react";
 import DataContext from "./Context/DataContext";
 
 function App() {
-  const dataContext = useContext(DataContext);
   return (
     <div className="App">
       <Router>
@@ -21,7 +20,7 @@ function App() {
           <Route
             exact
             path="/restaurants-details"
-            element={<RestaurantDetails menu={dataContext.currentMenu} />}
+            element={<RestaurantDetails />}
           />
         </Routes>
       </Router>
