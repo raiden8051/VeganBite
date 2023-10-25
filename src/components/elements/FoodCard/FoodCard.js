@@ -34,7 +34,7 @@ export default function FoodCard({ foodObj }) {
     if (!data.success) alert("Something went wrong");
 
     if (data.success) {
-      console.log(data);
+      // console.log(data);
     }
   };
 
@@ -60,7 +60,7 @@ export default function FoodCard({ foodObj }) {
     if (!data.success) alert("Something went wrong");
 
     if (data.success) {
-      console.log(data);
+      // console.log(data);
     }
   };
 

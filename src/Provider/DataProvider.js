@@ -8,6 +8,7 @@ const DataProvider = ({ children }) => {
   const [error, setError] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cartItem, setCartItem] = useState([]);
+  const [currentMenu, setCurrentMenu] = useState([]);
 
   const dataProviderValues = {
     foodData,
@@ -22,6 +23,8 @@ const DataProvider = ({ children }) => {
     setCartItem,
     restaurants,
     setRestaurants,
+    currentMenu,
+    setCurrentMenu,
   };
 
   return (

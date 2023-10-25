@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import FoodSection from "../components/FoodSection/FoodSection";
 import { useContext } from "react";
 import DataContext from "../Context/DataContext";
+import TempData from "../swiggyDataSet.json";
 export default function Home() {
   const dataContext = useContext(DataContext);
 
@@ -32,7 +33,6 @@ export default function Home() {
         },
       });
       const data = await response.json();
-      console.log(data);
       dataContext.setIsLoading(false);
       dataContext.setError([]);
       dataContext.setRestaurants(data);
@@ -52,7 +52,6 @@ export default function Home() {
     //     }
     //   );
     //   const data = await response.json();
-    //   console.log("raiden", data);
     //   dataContext.setIsLoading(false);
     //   dataContext.setError([]);
     //   dataContext.setFoodCategory(data);
