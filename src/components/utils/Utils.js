@@ -3,7 +3,7 @@ export const FecthData = async (url, method, body) => {
     try {
       const response = await fetch(url, {
         method: method,
-        ...(body && { body: body }),
+        ...(body && { body: JSON.stringify(body) }),
         headers: {
           "Content-Type": "application/json",
         },
