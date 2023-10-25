@@ -10,6 +10,7 @@ export default function FoodSection() {
       <div className="food-section-container">
         <h3 className="info-heading">Top restaurants chain in Patna</h3>
         <Restaurants />
+
         <h3 className="info-heading">Or select food</h3>
         <FoodCard />
       </div>

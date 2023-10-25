@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import DataContext from "../../../Context/DataContext";
 import Spinner from "../Spinner/Spinner";
 import "./Restaurants.css";
+import RestaurantDetails from "../RestaurantDetails/RestaurantDetails";
 
 export default function Restaurants() {
   const dataContext = useContext(DataContext);
-
+  const [menu, setMenu] = useState([]);
   const restaurants = dataContext?.restaurants;
   console.log(restaurants);
 
@@ -19,7 +20,7 @@ export default function Restaurants() {
     return (
       <div
         key={key}
-        className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-transparent dark:border-gray-700"
+        className="max-w-sm bg-white  rounded-lg shadow dark:bg-transparent dark:border-gray-700"
       >
         <a href="#">
           <img className="rounded-t-lg food-img" src={value.img} alt="" />
@@ -31,9 +32,10 @@ export default function Restaurants() {
             </h5>
           </a>
           <div className="rest-rating-div">
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
             <span class="material-symbols-outlined">stars</span>
-            {value.rating}
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {value.rating}
+            </p>
           </div>
           <p className="mb-1 text-left font-normal text-gray-700 dark:text-gray-400">
             {value.cuisine}
@@ -44,7 +46,10 @@ export default function Restaurants() {
           </p>
           <button
             className="inline-flex items-center mb-4 px-3 py-2 text-sm font-medium text-center text-white cursor-pointer bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={() => handleAddToCart(value.menu)}
+            onClick={() => {
+              setMenu(value.menu);
+              handleAddToCart(value.menu);
+            }}
           >
             Select
             <svg
@@ -67,17 +72,20 @@ export default function Restaurants() {
       </div>
     );
   };
-
+  // console.log("gk-1", menu);
   return (
     <div className="food-display-div">
-      {dataContext.isLoading && <Spinner />}
-      {dataContext.error.length > 0 ? (
-        <p className="text-red-400">{dataContext.error[0]}</p>
-      ) : (
-        restaurants?.map((value, key) => {
-          return renderItems(value, key);
-        })
-      )}
+      <div className="food-cards">
+        {dataContext.isLoading && <Spinner />}
+        {dataContext.error.length > 0 ? (
+          <p className="text-red-400">{dataContext.error[0]}</p>
+        ) : (
+          restaurants?.map((value, key) => {
+            return renderItems(value, key);
+          })
+        )}
+      </div>
+      {menu && <RestaurantDetails menu={menu} />}
     </div>
   );
 }

@@ -4,42 +4,45 @@ import Footer from "../components/Footer";
 import FoodSection from "../components/FoodSection/FoodSection";
 import { useContext } from "react";
 import DataContext from "../Context/DataContext";
+import TempData from "../swiggyDataSet.json";
 export default function Home() {
   const dataContext = useContext(DataContext);
 
   const loadData = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/api/displaydata", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      dataContext.setIsLoading(false);
-      dataContext.setError([]);
-      dataContext.setFoodData(data);
-    } catch (err) {
-      dataContext.setIsLoading(false);
-      dataContext.setError(["Failed to load data. Check your connection"]);
-    }
+    // try {
+    //   const response = await fetch("http://localhost:3001/api/displaydata", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   const data = await response.json();
+    //   dataContext.setIsLoading(false);
+    //   dataContext.setError([]);
+    //   dataContext.setFoodData(data);
+    // } catch (err) {
+    //   dataContext.setIsLoading(false);
+    //   dataContext.setError(["Failed to load data. Check your connection"]);
+    // }
 
-    try {
-      const response = await fetch("http://localhost:3001/api/restaurants", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      console.log(data);
-      dataContext.setIsLoading(false);
-      dataContext.setError([]);
-      dataContext.setRestaurants(data);
-    } catch (err) {
-      dataContext.setIsLoading(false);
-      dataContext.setError(["Failed to load data. Check your connection"]);
-    }
+    console.log("gk", TempData);
+    dataContext.setRestaurants(TempData);
+    // try {
+    //   const response = await fetch("http://localhost:3001/api/restaurants", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   const data = await response.json();
+    //   console.log(data);
+    //   dataContext.setIsLoading(false);
+    //   dataContext.setError([]);
+    //   dataContext.setRestaurants(data);
+    // } catch (err) {
+    //   dataContext.setIsLoading(false);
+    //   dataContext.setError(["Failed to load data. Check your connection"]);
+    // }
 
     // try {
     //   const response = await fetch(
