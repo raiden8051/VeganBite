@@ -1,15 +1,11 @@
-/* #accordion-collapse-body-1 {
-  display: hidden;
-} */
 .accordian {
-  margin: 20px;
+  margin-top: 20px;
 }
 .accordian .inactive {
   display: none;
 }
 .accordian div {
-  background-color: aliceblue;
-  /* margin-bottom: 20px; */
+  background-color: #f1f1f6;
   padding: 0 15px;
   cursor: pointer;
 }
@@ -76,4 +72,50 @@
 .rupee:before {
   content: "\20B9";
   margin-right: 0.1rem;
+}
+.restaurant-details-top {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #d3d3d3;
+}
+.restaurant-name {
+  font-size: 1.43rem;
+  font-weight: 600;
+  color: #282c3f;
+  /* margin-bottom: 8px; */
+  text-transform: capitalize;
+}
+.restaurant-sub-detail {
+  font-size: 0.93rem;
+  color: #7e808c;
+  height: calc(0.93rem + 2px);
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+.restaurant-details-rating {
+  border: 1px solid #e9e9eb;
+  box-shadow: 0 1px 5px #f9f9f9;
+  border-radius: 6px;
+  text-align: center;
+  padding: 8px;
+  max-width: 100px;
+  float: right;
+}
+.restaurant-rating {
+  color: #3d9b6d;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: block;
+}
+.rating-icon {
+  color: #3d9b6d;
+}
+.rating-wrapper {
+  display: flex;
+  justify-content: center;
+  /* padding-bottom: 10px; */
+  border-bottom: 1px solid #e9e9eb;
+  margin-bottom: 10px;
 }
