@@ -5,8 +5,6 @@ import Login from "./screens/Login";
 import Menu from "./screens/Menu";
 import Signup from "./screens/Signup";
 import RestaurantDetails from "./components/elements/RestaurantDetails/RestaurantDetails";
-import { useContext } from "react";
-import DataContext from "./Context/DataContext";
 
 function App() {
   console.log(

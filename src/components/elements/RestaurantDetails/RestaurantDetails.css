@@ -7,7 +7,6 @@
 .accordian div {
   background-color: #f1f1f6;
   padding: 0 15px;
-  cursor: pointer;
 }
 .accordian .accordian-heading {
   color: #3e4152;
@@ -19,6 +18,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 
 .accordion-inner-content {
@@ -38,7 +38,7 @@
   /* max-height: 30px;
   max-width: 30px; */
 }
-.accordian .inner-food-img img {
+.accordian .inner-food-img  {
   /* height: 100%; */
   /* width: 100%; */
   max-height: 150px;

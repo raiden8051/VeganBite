@@ -12,10 +12,12 @@
     "menu": {
       "Basmati ki mehak": {
         "Plain Rice": {
+          "f_id": 1,
           "price": "120",
           "veg_or_non_veg": "veg"
         },
         "Jeera Rice": {
+          "f_id": 2,
           "price": "135",
           "veg_or_non_veg": "veg"
         }
@@ -104,6 +106,7 @@
     "link": "https://www.swiggy.com/restaurants/bharawan-da-dhaba-central-abohar-abohar-156587"
   },
   {
+    "_id": { "$oid": "653771a51708cbf6ed603203" },
     "name": "Sher-e-punjab veg",
     "rating": "4.0",
     "rating_count": "100+ ratings",
@@ -273,6 +276,7 @@
     "link": "https://www.swiggy.com/restaurants/shere-punjab-veg-central-krishna-nagri-abohar-156588"
   },
   {
+    "_id": { "$oid": "6538dc21a707f3dcb06e8904" },
     "name": "Sethi Milk Badam",
     "rating": "4.2",
     "rating_count": "500+ ratings",
@@ -314,6 +318,7 @@
     "img": "https://chefmeathome.com/cdn/shop/articles/Freak_Shake_Blog_Image_1200x.jpg?v=1633880329"
   },
   {
+    "_id": { "$oid": "6538ddcda707f3dcb06e8905" },
     "name": "Jodhpuri Kachori",
     "rating": "3.2",
     "rating_count": "Too Few Ratings",
@@ -353,6 +358,7 @@
     "img": "https://static.wixstatic.com/media/70da2c_bd7e9085753141158b06529f01b039b1~mv2.jpg/v1/fill/w_1000,h_563,al_c,q_85,usm_0.66_1.00_0.01/70da2c_bd7e9085753141158b06529f01b039b1~mv2.jpg"
   },
   {
+    "_id": { "$oid": "6538e164a707f3dcb06e8906" },
     "name": "Tandoori Nights",
     "rating": "4.1",
     "rating_count": "2k+",
@@ -494,6 +500,7 @@
     "img": "https://tb-static.uber.com/prod/image-proc/processed_images/062051e533bb0a95482f23a46aaff261/9ba9ffab5f885fc3dac87838b3357014.webp"
   },
   {
+    "_id": { "$oid": "6538e2cea707f3dcb06e8907" },
     "name": "Hungry Hub",
     "rating": "4.5",
     "rating_count": "1k+ ratings",
@@ -751,6 +758,7 @@
     "img": "https://img.jakpost.net/c/2016/09/29/2016_09_29_12990_1475116504._large.jpg"
   },
   {
+    "_id": { "$oid": "6538e365a707f3dcb06e8908" },
     "name": "Shri Balaji Vaishno Dhaba",
     "rating": "3.9",
     "rating_count": "500+",
