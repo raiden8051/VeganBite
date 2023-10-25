@@ -57,11 +57,7 @@ export default function Home() {
     if (localStorage.getItem("userId")) {
       let id = localStorage.getItem("userId");
 
-      FecthData(
-        "http://localhost:3001/api/getcart",
-        "POST",
-        JSON.stringify({ userId: id })
-      )
+      FecthData("http://localhost:3001/api/getcart", "POST", { userId: id })
         .then((data) => {
           dataContext.setCartItem(data?.data?.cartItems);
         })
