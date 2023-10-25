@@ -11,8 +11,8 @@ export default function FoodSection() {
         <h3 className="info-heading">Top restaurants chain in Patna</h3>
         <Restaurants />
 
-        <h3 className="info-heading">Or select food</h3>
-        <FoodCard />
+        {/* <h3 className="info-heading">Or select food</h3> */}
+        {/* <FoodCard /> */}
       </div>
     </div>
   );

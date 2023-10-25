@@ -9,40 +9,37 @@ export default function Home() {
   const dataContext = useContext(DataContext);
 
   const loadData = async () => {
-    // try {
-    //   const response = await fetch("http://localhost:3001/api/displaydata", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   const data = await response.json();
-    //   dataContext.setIsLoading(false);
-    //   dataContext.setError([]);
-    //   dataContext.setFoodData(data);
-    // } catch (err) {
-    //   dataContext.setIsLoading(false);
-    //   dataContext.setError(["Failed to load data. Check your connection"]);
-    // }
+    try {
+      const response = await fetch("http://localhost:3001/api/displaydata", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      dataContext.setIsLoading(false);
+      dataContext.setError([]);
+      dataContext.setFoodData(data);
+    } catch (err) {
+      dataContext.setIsLoading(false);
+      dataContext.setError(["Failed to load data. Check your connection"]);
+    }
 
-    console.log("gk", TempData);
-    dataContext.setRestaurants(TempData);
-    // try {
-    //   const response = await fetch("http://localhost:3001/api/restaurants", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   const data = await response.json();
-    //   console.log(data);
-    //   dataContext.setIsLoading(false);
-    //   dataContext.setError([]);
-    //   dataContext.setRestaurants(data);
-    // } catch (err) {
-    //   dataContext.setIsLoading(false);
-    //   dataContext.setError(["Failed to load data. Check your connection"]);
-    // }
+    try {
+      const response = await fetch("http://localhost:3001/api/restaurants", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      dataContext.setIsLoading(false);
+      dataContext.setError([]);
+      dataContext.setRestaurants(data);
+    } catch (err) {
+      dataContext.setIsLoading(false);
+      dataContext.setError(["Failed to load data. Check your connection"]);
+    }
 
     // try {
     //   const response = await fetch(
@@ -55,7 +52,6 @@ export default function Home() {
     //     }
     //   );
     //   const data = await response.json();
-    //   console.log("raiden", data);
     //   dataContext.setIsLoading(false);
     //   dataContext.setError([]);
     //   dataContext.setFoodCategory(data);

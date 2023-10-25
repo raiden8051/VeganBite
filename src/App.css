@@ -8,7 +8,8 @@
   pointer-events: none;
 }
 .rootDiv {
-  height: 100%;
+  height: fit-content;
+  min-height: 100vh;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

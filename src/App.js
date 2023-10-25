@@ -4,21 +4,27 @@ import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Menu from "./screens/Menu";
 import Signup from "./screens/Signup";
-import DataProvider from "./Provider/DataProvider";
+import RestaurantDetails from "./components/elements/RestaurantDetails/RestaurantDetails";
+import { useContext } from "react";
+import DataContext from "./Context/DataContext";
 
 function App() {
+  const dataContext = useContext(DataContext);
   return (
     <div className="App">
-      <DataProvider>
-        <Router>
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/menu" element={<Menu />} />
-            <Route exact path="/createuser" element={<Signup />} />
-          </Routes>
-        </Router>
-      </DataProvider>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/menu" element={<Menu />} />
+          <Route exact path="/createuser" element={<Signup />} />
+          <Route
+            exact
+            path="/restaurants-details"
+            element={<RestaurantDetails menu={dataContext.currentMenu} />}
+          />
+        </Routes>
+      </Router>
     </div>
   );
 }

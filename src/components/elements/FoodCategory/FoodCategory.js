@@ -8,7 +8,6 @@ export default function FoodCategory() {
   const dataContext = useContext(DataContext);
 
   const foodCategory = dataContext?.foodCategory;
-  console.log(foodCategory);
 
   const handleAddToCart = (id) => {};
 

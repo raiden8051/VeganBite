@@ -5,16 +5,14 @@ import DataContext from "../../../Context/DataContext";
 import Spinner from "../Spinner/Spinner";
 import "./Restaurants.css";
 import RestaurantDetails from "../RestaurantDetails/RestaurantDetails";
+import { Link } from "react-router-dom";
 
 export default function Restaurants() {
   const dataContext = useContext(DataContext);
   const [menu, setMenu] = useState([]);
   const restaurants = dataContext?.restaurants;
-  console.log(restaurants);
 
-  const handleAddToCart = (menu) => {
-    console.log(menu);
-  };
+  const handleAddToCart = (menu) => {};
 
   const renderItems = (value, key) => {
     return (
@@ -32,7 +30,7 @@ export default function Restaurants() {
             </h5>
           </a>
           <div className="rest-rating-div">
-            <span class="material-symbols-outlined">stars</span>
+            <span className="material-symbols-outlined">stars</span>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
               {value.rating}
             </p>
@@ -44,9 +42,12 @@ export default function Restaurants() {
             <b>Address:</b> &nbsp;
             {value.address}
           </p>
-          <button
+          <Link
+            to="/restaurants-details"
             className="inline-flex items-center mb-4 px-3 py-2 text-sm font-medium text-center text-white cursor-pointer bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             onClick={() => {
+              dataContext.setCurrentMenu(value.menu);
+              console.log("first");
               setMenu(value.menu);
               handleAddToCart(value.menu);
             }}
@@ -67,12 +68,11 @@ export default function Restaurants() {
                 d="M1 5h12m0 0L9 1m4 4L9 9"
               />
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
     );
   };
-  // console.log("gk-1", menu);
   return (
     <div className="food-display-div">
       <div className="food-cards">
@@ -85,7 +85,7 @@ export default function Restaurants() {
           })
         )}
       </div>
-      {menu && <RestaurantDetails menu={menu} />}
+      {/* {menu && <RestaurantDetails menu={menu} />} */}
     </div>
   );
 }
