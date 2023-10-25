@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 3001;
-const mongoDB = require("./db");
+require("./db");
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -14,7 +14,9 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hell World!");
+  res.send(
+    "This is the backend server! Server is running perfectly, you can close this tab"
+  );
 });
 
 app.use(express.json());
