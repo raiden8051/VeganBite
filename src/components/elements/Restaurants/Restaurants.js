@@ -3,16 +3,12 @@
 import React, { useContext, useState } from "react";
 import DataContext from "../../../Context/DataContext";
 import Spinner from "../Spinner/Spinner";
-import "./Restaurants.css";
-import RestaurantDetails from "../RestaurantDetails/RestaurantDetails";
 import { Link } from "react-router-dom";
+import "./Restaurants.css";
 
 export default function Restaurants() {
   const dataContext = useContext(DataContext);
-  const [menu, setMenu] = useState([]);
   const restaurants = dataContext?.restaurants;
-
-  const handleAddToCart = (menu) => {};
 
   const renderItems = (value, key) => {
     return (
@@ -47,9 +43,7 @@ export default function Restaurants() {
             className="inline-flex items-center mb-4 px-3 py-2 text-sm font-medium text-center text-white cursor-pointer bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             onClick={() => {
               dataContext.setCurrentMenu(value.menu);
-              console.log("first");
-              setMenu(value.menu);
-              handleAddToCart(value.menu);
+              localStorage.setItem("selectedRestaurantId", value._id);
             }}
           >
             Select
@@ -85,7 +79,6 @@ export default function Restaurants() {
           })
         )}
       </div>
-      {/* {menu && <RestaurantDetails menu={menu} />} */}
     </div>
   );
 }
