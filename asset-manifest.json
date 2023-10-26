@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/VeganBite/static/css/main.64db1e61.css",
-    "main.js": "/VeganBite/static/js/main.ff7f61c5.js",
+    "main.css": "/VeganBite/static/css/main.78aaf7b1.css",
+    "main.js": "/VeganBite/static/js/main.e7ba0024.js",
     "static/js/787.dbe251f9.chunk.js": "/VeganBite/static/js/787.dbe251f9.chunk.js",
     "index.html": "/VeganBite/index.html",
-    "main.64db1e61.css.map": "/VeganBite/static/css/main.64db1e61.css.map",
-    "main.ff7f61c5.js.map": "/VeganBite/static/js/main.ff7f61c5.js.map",
+    "main.78aaf7b1.css.map": "/VeganBite/static/css/main.78aaf7b1.css.map",
+    "main.e7ba0024.js.map": "/VeganBite/static/js/main.e7ba0024.js.map",
     "787.dbe251f9.chunk.js.map": "/VeganBite/static/js/787.dbe251f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.64db1e61.css",
-    "static/js/main.ff7f61c5.js"
+    "static/css/main.78aaf7b1.css",
+    "static/js/main.e7ba0024.js"
   ]
 }
