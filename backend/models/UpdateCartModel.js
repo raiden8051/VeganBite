@@ -11,6 +11,10 @@ const UpdateCartModel = new Schema({
     type: Array,
     required: true,
   },
+  cartPrice: {
+    type: Number,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("cart_items_masters", UpdateCartModel);

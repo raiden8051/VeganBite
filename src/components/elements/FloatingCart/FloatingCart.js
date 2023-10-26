@@ -9,11 +9,13 @@ function FloatingCart() {
   return (
     <div className="bg-blue-500 flex p-5 items-center justify-between text-white  floating-cart-wrapper">
       <span className="item-price-count-wrapper flex gap-0">
-        <span className="border-r p-1 pr-2">{totalPrice}</span>{" "}
-        <span className="p-1 pl-2 ">{cartItemsCount}</span>
+        <span className="p-1 pr-2 border-r">{cartItemsCount} items</span>
+        <span className="p-1 pl-2">&#8377; {totalPrice}</span>{" "}
       </span>
-      <button className="rounded-md h-10 bg-yellow-300 text-black p-2 ">
-        View Cart
+      <button className="">
+        <span className="material-symbols-outlined mx-2">
+          shopping_cart_checkout
+        </span>
       </button>
     </div>
   );
