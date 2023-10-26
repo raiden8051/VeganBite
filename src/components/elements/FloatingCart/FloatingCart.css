@@ -4,4 +4,8 @@
   width: 70%;
   margin: 0 15%;
   z-index: 1;
+  height: 45px;
+  border-radius: 4px 4px 0 0;
+  background-color: #60b246;
+  font-weight: 700;
 }
