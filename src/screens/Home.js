@@ -14,7 +14,7 @@ export default function Home() {
     // Uncomment this for running with local data
     // dataContext.setRestaurants(TempData);
 
-    FecthData("http://localhost:3001/api/displaydata", "POST")
+    FecthData("https://raiden8051.github.io/VeganBite/api/displaydata", "POST")
       .then((data) => {
         dataContext.setIsLoading(false);
         dataContext.setError([]);
@@ -25,7 +25,7 @@ export default function Home() {
         dataContext.setError(["Failed to load data. Check your connection"]);
       });
 
-    FecthData("http://localhost:3001/api/restaurants", "POST")
+    FecthData("https://raiden8051.github.io/VeganBite/api/restaurants", "POST")
       .then((data) => {
         dataContext.setIsLoading(false);
         dataContext.setError([]);
