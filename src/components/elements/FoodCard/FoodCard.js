@@ -120,7 +120,7 @@ export default function FoodCard({ foodObj }) {
   };
 
   return (
-    <div className="food-display-div">
+    <div className="food-cards">
       {dataContext.isLoading && <Spinner />}
       {dataContext.error.length > 0 ? (
         <p className="text-red-400">{dataContext.error[0]}</p>
