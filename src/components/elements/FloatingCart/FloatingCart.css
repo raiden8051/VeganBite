@@ -1,0 +1,7 @@
+.floating-cart-wrapper {
+  position: fixed;
+  bottom: 0px;
+  width: 70%;
+  margin: 0 15%;
+  z-index: 1;
+}

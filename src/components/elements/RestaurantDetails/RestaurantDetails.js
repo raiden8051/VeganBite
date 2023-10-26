@@ -4,6 +4,7 @@ import iconVeg from "../../../assets/images/icon-veg.png";
 import DataContext from "../../../Context/DataContext";
 import { FecthData, isObjEmpty } from "../../utils/Utils";
 import Navbar from "../../Navbar";
+import FloatingCart from "../FloatingCart/FloatingCart";
 function RestaurantDetails() {
   const dataContext = useContext(DataContext);
   const [currentRest, setCurrentRest] = useState({});
@@ -176,13 +177,22 @@ function RestaurantDetails() {
                                     disabled={dataContext.cartItem.includes(
                                       currentRest?.menu[item][inneritem]["f_id"]
                                     )}
-                                    onClick={() =>
+                                    onClick={() => {
                                       handleCartClick(
                                         currentRest?.menu[item][inneritem][
                                           "f_id"
                                         ]
-                                      )
-                                    }
+                                      );
+                                      dataContext.setTotalPrice(
+                                        (prev) =>
+                                          parseInt(prev) +
+                                          parseInt(
+                                            currentRest?.menu[item][inneritem][
+                                              "price"
+                                            ]
+                                          )
+                                      );
+                                    }}
                                   >
                                     {dataContext.cartItem.includes(
                                       currentRest?.menu[item][inneritem]["f_id"]
@@ -195,13 +205,22 @@ function RestaurantDetails() {
                                   currentRest?.menu[item][inneritem]["f_id"]
                                 ) && (
                                   <button
-                                    onClick={() =>
+                                    onClick={() => {
                                       handleItemDelete(
                                         currentRest?.menu[item][inneritem][
                                           "f_id"
                                         ]
-                                      )
-                                    }
+                                      );
+                                      dataContext?.setTotalPrice(
+                                        (prev) =>
+                                          parseInt(prev) -
+                                          parseInt(
+                                            currentRest?.menu[item][inneritem][
+                                              "price"
+                                            ]
+                                          )
+                                      );
+                                    }}
                                     className="delete-cart-item-button"
                                   >
                                     <span className="material-symbols-outlined">
@@ -224,6 +243,8 @@ function RestaurantDetails() {
       ) : (
         "Server Issue"
       )}
+
+      <FloatingCart />
     </>
   );
 }

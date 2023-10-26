@@ -6,6 +6,7 @@ import { useContext } from "react";
 import DataContext from "../Context/DataContext";
 import TempData from "../swiggyDataSet.json";
 import { FecthData } from "../components/utils/Utils";
+import FloatingCart from "../components/elements/FloatingCart/FloatingCart";
 export default function Home() {
   const dataContext = useContext(DataContext);
 
@@ -77,6 +78,9 @@ export default function Home() {
       </div>
       <div>
         <FoodSection />
+      </div>
+      <div>
+        <FloatingCart />
       </div>
       <div>
         <Footer />
