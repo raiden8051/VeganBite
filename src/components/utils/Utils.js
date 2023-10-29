@@ -17,5 +17,5 @@ export const FecthData = async (url, method, body) => {
 };
 
 export const isObjEmpty = (obj) => {
-  return Object.keys(obj).length === 0;
+  return Object.keys(obj)?.length === 0;
 };

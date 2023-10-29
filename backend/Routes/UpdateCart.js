@@ -8,6 +8,7 @@ router.put("/updatecart", async (req, res) => {
     let userId = req.body.userId;
     let cartItems = req.body.cartItems;
     let cartPrice = req.body.cartPrice;
+    let restaurantId = req.body.restaurantId;
 
     let _hasId = await cartModel.findOne({ userId });
 
@@ -18,6 +19,7 @@ router.put("/updatecart", async (req, res) => {
           userId: userId,
           cartItems: cartItems,
           cartPrice: cartPrice,
+          restaurantId: restaurantId,
         }
       );
     } else {
@@ -25,6 +27,7 @@ router.put("/updatecart", async (req, res) => {
         userId: userId,
         cartItems: cartItems,
         cartPrice: cartPrice,
+        restaurantId: restaurantId,
       });
     }
 

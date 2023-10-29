@@ -48,6 +48,8 @@ function RestaurantDetails() {
       body: JSON.stringify({
         userId: userId,
         cartItems: dataContext.cartItem,
+        cartPrice: dataContext.totalPrice,
+        restaurantId: dataContext?.currentRest?._id,
       }),
     });
     const data = await response.json();
@@ -74,6 +76,7 @@ function RestaurantDetails() {
       body: JSON.stringify({
         userId: userId,
         cartItems: cd,
+        cartPrice: dataContext.totalPrice,
       }),
     });
     const data = await response.json();
