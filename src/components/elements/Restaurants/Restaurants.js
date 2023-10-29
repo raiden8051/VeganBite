@@ -9,6 +9,39 @@ import "./Restaurants.css";
 export default function Restaurants() {
   const dataContext = useContext(DataContext);
   const restaurants = dataContext?.restaurants;
+
+  const handleCartChange = async (_id) => {
+    if (_id !== dataContext.cart.restaurantId) {
+      let answer = window.confirm(
+        "Changing restaurant will result in empty cart.\nClick Confirm if you want to change"
+      );
+      if (answer) {
+        // dataContext.setCart((prev) => ({
+        //   ...prev,
+        //   cartItem: [],
+        //   cartPrice: 0,
+        //   restaurantId: _id,
+        // }));
+        const response = await fetch("http://localhost:3001/api/updatecart", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...dataContext.cart,
+            userId: localStorage.getItem("userId"),
+            cartItems: [],
+            cartPrice: 0,
+            restaurantId: _id,
+          }),
+        });
+        const data = await response.json();
+
+        if (!data.success) alert("Something went wrong");
+      }
+    }
+  };
+
   const renderItems = (value, key) => {
     return (
       <div
@@ -41,9 +74,9 @@ export default function Restaurants() {
             to="/restaurants-details"
             className="inline-flex items-center w-full px-3 py-2 text-sm font-medium text-center bg-green-600 text-white cursor-pointer  rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             onClick={() => {
-              dataContext.setCurrentMenu(value.menu);
               localStorage.setItem("selectedRestaurantId", value._id);
               dataContext.setCurrentRest(value);
+              handleCartChange(value._id);
             }}
           >
             Select

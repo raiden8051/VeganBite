@@ -156,9 +156,9 @@ function Navbar() {
                   >
                     Cart{" "}
                   </Link>
-                  {dataContext.cartItem.length > 0 && (
+                  {dataContext.cart.cartItem.length > 0 && (
                     <div className="cart-notification-div">
-                      {dataContext.cartItem.length}
+                      {dataContext.cart.cartItem.length}
                     </div>
                   )}
                 </li>

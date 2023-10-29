@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./RestaurantDetails.css";
 import iconVeg from "../../../assets/images/icon-veg.png";
@@ -30,16 +31,25 @@ function RestaurantDetails() {
     }
   }, []);
 
-  const handleCartClick = (itemId) => {
-    dataContext.setCartItem((prev) => [...prev, itemId]);
+  const handleCartClick = (item) => {
+    let cartItem = dataContext.cart.cartItem;
+    let cartPrice = dataContext.cart.cartPrice;
+
+    cartItem = [...cartItem, item.f_id];
+
+    cartPrice += parseInt(item.price);
+
+    dataContext.setCart((prev) => ({
+      ...prev,
+      cartItem: cartItem,
+      cartPrice: cartPrice,
+      restaurantId: currentRest?._id,
+    }));
+
+    updateCartItems(cartItem, cartPrice);
   };
 
-  useEffect(() => {
-    console.log(dataContext.cartItem);
-    if (dataContext.cartItem.length > 0) updateCartItems();
-  }, [dataContext.cartItem]);
-
-  const updateCartItems = async () => {
+  const updateCartItems = async (cartItem, cartPrice) => {
     const response = await fetch("http://localhost:3001/api/updatecart", {
       method: "PUT",
       headers: {
@@ -47,9 +57,9 @@ function RestaurantDetails() {
       },
       body: JSON.stringify({
         userId: userId,
-        cartItems: dataContext.cartItem,
-        cartPrice: dataContext.totalPrice,
-        restaurantId: dataContext?.currentRest?._id,
+        cartItems: cartItem,
+        cartPrice: cartPrice,
+        restaurantId: currentRest?._id,
       }),
     });
     const data = await response.json();
@@ -57,16 +67,29 @@ function RestaurantDetails() {
     if (!data.success) alert("Something went wrong");
 
     if (data.success) {
-      // console.log(data);
+      dataContext.setCart((prev) => ({
+        ...prev,
+        restaurantId: data?.data?.restaurantId,
+      }));
     }
   };
 
-  const handleItemDelete = async (id) => {
-    let cd = dataContext.cartItem;
-    cd = cd.filter((value) => {
-      return value !== id;
+  const handleItemDelete = async (item) => {
+    let cartItem = dataContext.cart.cartItem;
+    let cartPrice = dataContext.cart.cartPrice;
+
+    cartItem = cartItem.filter((value) => {
+      return value !== item.f_id;
     });
-    dataContext.setCartItem(cd);
+
+    cartPrice -= parseInt(item.price);
+
+    dataContext.setCart((prev) => ({
+      ...prev,
+      cartItem: cartItem,
+      cartPrice: cartPrice,
+      restaurantId: currentRest?._id,
+    }));
 
     const response = await fetch("http://localhost:3001/api/updatecart", {
       method: "PUT",
@@ -75,8 +98,9 @@ function RestaurantDetails() {
       },
       body: JSON.stringify({
         userId: userId,
-        cartItems: cd,
-        cartPrice: dataContext.totalPrice,
+        cartItems: cartItem,
+        cartPrice: cartPrice,
+        restaurantId: currentRest?._id,
       }),
     });
     const data = await response.json();
@@ -177,60 +201,48 @@ function RestaurantDetails() {
                                 <span className="inner-food-img">
                                   <button
                                     className="text-green-500 accordian-add-button px-5 py-2"
-                                    disabled={dataContext.cartItem.includes(
-                                      currentRest?.menu[item][inneritem]["f_id"]
-                                    )}
-                                    onClick={() => {
-                                      handleCartClick(
+                                    disabled={
+                                      dataContext.cart.cartItem.includes(
                                         currentRest?.menu[item][inneritem][
                                           "f_id"
                                         ]
-                                      );
-                                      dataContext.setTotalPrice(
-                                        (prev) =>
-                                          parseInt(prev) +
-                                          parseInt(
-                                            currentRest?.menu[item][inneritem][
-                                              "price"
-                                            ]
-                                          )
+                                      ) &&
+                                      dataContext.cart.restaurantId ===
+                                        currentRest._id
+                                    }
+                                    onClick={() => {
+                                      handleCartClick(
+                                        currentRest?.menu[item][inneritem]
                                       );
                                     }}
                                   >
-                                    {dataContext.cartItem.includes(
+                                    {dataContext.cart.cartItem.includes(
                                       currentRest?.menu[item][inneritem]["f_id"]
-                                    )
+                                    ) &&
+                                    dataContext.cart.restaurantId ===
+                                      currentRest._id
                                       ? "In plate"
                                       : "Add to plate"}
                                   </button>
                                 </span>
-                                {dataContext.cartItem.includes(
+                                {dataContext.cart.cartItem.includes(
                                   currentRest?.menu[item][inneritem]["f_id"]
-                                ) && (
-                                  <button
-                                    onClick={() => {
-                                      handleItemDelete(
-                                        currentRest?.menu[item][inneritem][
-                                          "f_id"
-                                        ]
-                                      );
-                                      dataContext?.setTotalPrice(
-                                        (prev) =>
-                                          parseInt(prev) -
-                                          parseInt(
-                                            currentRest?.menu[item][inneritem][
-                                              "price"
-                                            ]
-                                          )
-                                      );
-                                    }}
-                                    className="delete-cart-item-button"
-                                  >
-                                    <span className="material-symbols-outlined">
-                                      delete
-                                    </span>
-                                  </button>
-                                )}
+                                ) &&
+                                  dataContext.cart.restaurantId ===
+                                    currentRest._id && (
+                                    <button
+                                      onClick={() => {
+                                        handleItemDelete(
+                                          currentRest?.menu[item][inneritem]
+                                        );
+                                      }}
+                                      className="delete-cart-item-button"
+                                    >
+                                      <span className="material-symbols-outlined">
+                                        delete
+                                      </span>
+                                    </button>
+                                  )}
                               </div>
                             );
                           }

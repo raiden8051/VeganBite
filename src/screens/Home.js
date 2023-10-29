@@ -62,8 +62,12 @@ export default function Home() {
       FecthData("http://localhost:3001/api/getcart", "POST", { userId: id })
         .then((data) => {
           if (data.success) {
-            dataContext.setCartItem(data?.data?.cartItems);
-            dataContext.setTotalPrice(parseInt(data?.data?.cartPrice));
+            dataContext.setCart((prev) => ({
+              ...prev,
+              restaurantId: data?.data?.restaurantId,
+              cartItem: data?.data?.cartItems,
+              cartPrice: data?.data?.cartPrice,
+            }));
           }
         })
         .catch((err) => {
@@ -84,7 +88,7 @@ export default function Home() {
       <div>
         <FoodSection />
       </div>
-      <div>{dataContext.cartItem.length > 0 && <FloatingCart />}</div>
+      <div>{dataContext.cart.cartItem.length > 0 && <FloatingCart />}</div>
       <div>
         <Footer />
       </div>

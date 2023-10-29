@@ -11,9 +11,10 @@ router.put("/updatecart", async (req, res) => {
     let restaurantId = req.body.restaurantId;
 
     let _hasId = await cartModel.findOne({ userId });
+    let resData = {};
 
     if (_hasId) {
-      await cartModel.findOneAndUpdate(
+      resData = await cartModel.findOneAndUpdate(
         { userId: userId },
         {
           userId: userId,
@@ -23,7 +24,7 @@ router.put("/updatecart", async (req, res) => {
         }
       );
     } else {
-      await cartModel.create({
+      resData = await cartModel.create({
         userId: userId,
         cartItems: cartItems,
         cartPrice: cartPrice,
@@ -31,7 +32,7 @@ router.put("/updatecart", async (req, res) => {
       });
     }
 
-    return res.json({ success: true, message: "Done" });
+    return res.json({ success: true, message: "Done", data: resData });
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: "System error" });
