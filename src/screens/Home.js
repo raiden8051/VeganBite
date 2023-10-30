@@ -5,7 +5,7 @@ import FoodSection from "../components/FoodSection/FoodSection";
 import { useContext } from "react";
 import DataContext from "../Context/DataContext";
 import TempData from "../swiggyDataSet.json";
-import { FecthData } from "../components/utils/Utils";
+import { fetchData, getCartInfo } from "../components/utils/Utils";
 import FloatingCart from "../components/elements/FloatingCart/FloatingCart";
 // import Hoist from "./Hoist";
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
     // Uncomment this for running with local data
     // dataContext.setRestaurants(TempData);
 
-    FecthData("http://localhost:3001/api/displaydata", "POST")
+    fetchData("http://localhost:3001/api/displaydata", "POST")
       .then((data) => {
         dataContext.setIsLoading(false);
         dataContext.setError([]);
@@ -26,7 +26,7 @@ export default function Home() {
         dataContext.setError(["Failed to load data. Check your connection"]);
       });
 
-    FecthData("http://localhost:3001/api/restaurants", "POST")
+    fetchData("http://localhost:3001/api/restaurants", "POST")
       .then((data) => {
         dataContext.setIsLoading(false);
         dataContext.setError([]);
@@ -56,25 +56,7 @@ export default function Home() {
       dataContext.setError(["Failed to load data. Check your connection"]);
     }
 
-    if (localStorage.getItem("userId")) {
-      let id = localStorage.getItem("userId");
-
-      FecthData("http://localhost:3001/api/getcart", "POST", { userId: id })
-        .then((data) => {
-          if (data.success) {
-            dataContext.setCart((prev) => ({
-              ...prev,
-              restaurantId: data?.data?.restaurantId,
-              cartItem: data?.data?.cartItems,
-              cartPrice: data?.data?.cartPrice,
-            }));
-          }
-        })
-        .catch((err) => {
-          // dataContext.setIsLoading(false);
-          dataContext.setError(["Failed to load data. Check your connection"]);
-        });
-    }
+    getCartInfo(dataContext);
   };
   useEffect(() => {
     loadData();
@@ -88,7 +70,7 @@ export default function Home() {
       <div>
         <FoodSection />
       </div>
-      <div>{dataContext.cart.cartItem.length > 0 && <FloatingCart />}</div>
+      <div>{dataContext.cart.cartItems.length > 0 && <FloatingCart />}</div>
       <div>
         <Footer />
       </div>

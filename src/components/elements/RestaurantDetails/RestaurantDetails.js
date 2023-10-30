@@ -1,19 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./RestaurantDetails.css";
 import iconVeg from "../../../assets/images/icon-veg.png";
 import DataContext from "../../../Context/DataContext";
-import { FecthData, isObjEmpty } from "../../utils/Utils";
+import {
+  fetchData,
+  getCartInfo,
+  handelDeleteCartItems,
+  handleUpdateCartItems,
+  isObjEmpty,
+} from "../../utils/Utils";
 import Navbar from "../../Navbar";
 import FloatingCart from "../FloatingCart/FloatingCart";
 function RestaurantDetails() {
   const dataContext = useContext(DataContext);
   const [currentRest, setCurrentRest] = useState({});
-  const userId = localStorage?.getItem("userId");
 
   useEffect(() => {
     if (isObjEmpty(dataContext.currentRest)) {
-      FecthData("http://localhost:3001/api/restaurants", "POST")
+      fetchData("http://localhost:3001/api/restaurants", "POST")
         .then((data) => {
           dataContext.setIsLoading(false);
           dataContext.setError([]);
@@ -29,87 +34,31 @@ function RestaurantDetails() {
       console.log(dataContext.currentRest);
       setCurrentRest(dataContext.currentRest);
     }
+
+    getCartInfo(dataContext);
   }, []);
 
   const handleCartClick = (item) => {
-    let cartItem = dataContext.cart.cartItem;
+    let cartItems = dataContext.cart.cartItems;
     let cartPrice = dataContext.cart.cartPrice;
 
-    cartItem = [...cartItem, item.f_id];
+    cartItems = [...cartItems, item.f_id];
 
     cartPrice += parseInt(item.price);
-
-    dataContext.setCart((prev) => ({
-      ...prev,
-      cartItem: cartItem,
-      cartPrice: cartPrice,
-      restaurantId: currentRest?._id,
-    }));
-
-    updateCartItems(cartItem, cartPrice);
-  };
-
-  const updateCartItems = async (cartItem, cartPrice) => {
-    const response = await fetch("http://localhost:3001/api/updatecart", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: userId,
-        cartItems: cartItem,
-        cartPrice: cartPrice,
-        restaurantId: currentRest?._id,
-      }),
-    });
-    const data = await response.json();
-
-    if (!data.success) alert("Something went wrong");
-
-    if (data.success) {
-      dataContext.setCart((prev) => ({
-        ...prev,
-        restaurantId: data?.data?.restaurantId,
-      }));
-    }
+    handleUpdateCartItems(dataContext, cartItems, cartPrice, currentRest?._id);
   };
 
   const handleItemDelete = async (item) => {
-    let cartItem = dataContext.cart.cartItem;
+    let cartItems = dataContext.cart.cartItems;
     let cartPrice = dataContext.cart.cartPrice;
 
-    cartItem = cartItem.filter((value) => {
+    cartItems = cartItems.filter((value) => {
       return value !== item.f_id;
     });
 
     cartPrice -= parseInt(item.price);
 
-    dataContext.setCart((prev) => ({
-      ...prev,
-      cartItem: cartItem,
-      cartPrice: cartPrice,
-      restaurantId: currentRest?._id,
-    }));
-
-    const response = await fetch("http://localhost:3001/api/updatecart", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: userId,
-        cartItems: cartItem,
-        cartPrice: cartPrice,
-        restaurantId: currentRest?._id,
-      }),
-    });
-    const data = await response.json();
-
-    if (!data.success) alert("Something went wrong");
-
-    if (data.success) {
-      // console.log(data);
-    }
+    handelDeleteCartItems(dataContext, cartItems, cartPrice, currentRest._id);
   };
 
   const [accordian, setActiveAccordain] = useState(-1);
@@ -202,7 +151,7 @@ function RestaurantDetails() {
                                   <button
                                     className="text-green-500 accordian-add-button px-5 py-2"
                                     disabled={
-                                      dataContext.cart.cartItem.includes(
+                                      dataContext.cart.cartItems.includes(
                                         currentRest?.menu[item][inneritem][
                                           "f_id"
                                         ]
@@ -216,7 +165,7 @@ function RestaurantDetails() {
                                       );
                                     }}
                                   >
-                                    {dataContext.cart.cartItem.includes(
+                                    {dataContext.cart.cartItems.includes(
                                       currentRest?.menu[item][inneritem]["f_id"]
                                     ) &&
                                     dataContext.cart.restaurantId ===
@@ -225,7 +174,7 @@ function RestaurantDetails() {
                                       : "Add to plate"}
                                   </button>
                                 </span>
-                                {dataContext.cart.cartItem.includes(
+                                {dataContext.cart.cartItems.includes(
                                   currentRest?.menu[item][inneritem]["f_id"]
                                 ) &&
                                   dataContext.cart.restaurantId ===

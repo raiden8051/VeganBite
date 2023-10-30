@@ -5,42 +5,11 @@ import DataContext from "../../../Context/DataContext";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import "./Restaurants.css";
+import { handleCartChange } from "../../utils/Utils";
 
 export default function Restaurants() {
   const dataContext = useContext(DataContext);
   const restaurants = dataContext?.restaurants;
-
-  const handleCartChange = async (_id) => {
-    if (_id !== dataContext.cart.restaurantId) {
-      let answer = window.confirm(
-        "Changing restaurant will result in empty cart.\nClick Confirm if you want to change"
-      );
-      if (answer) {
-        // dataContext.setCart((prev) => ({
-        //   ...prev,
-        //   cartItem: [],
-        //   cartPrice: 0,
-        //   restaurantId: _id,
-        // }));
-        const response = await fetch("http://localhost:3001/api/updatecart", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...dataContext.cart,
-            userId: localStorage.getItem("userId"),
-            cartItems: [],
-            cartPrice: 0,
-            restaurantId: _id,
-          }),
-        });
-        const data = await response.json();
-
-        if (!data.success) alert("Something went wrong");
-      }
-    }
-  };
 
   const renderItems = (value, key) => {
     return (
@@ -76,7 +45,7 @@ export default function Restaurants() {
             onClick={() => {
               localStorage.setItem("selectedRestaurantId", value._id);
               dataContext.setCurrentRest(value);
-              handleCartChange(value._id);
+              handleCartChange(value._id, dataContext);
             }}
           >
             Select

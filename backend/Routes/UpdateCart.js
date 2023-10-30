@@ -32,6 +32,19 @@ router.put("/updatecart", async (req, res) => {
       });
     }
 
+    if (resData) {
+      try {
+        let _hasId = await cartModel.findOne({ userId });
+
+        if (_hasId) {
+          return res.json({ success: true, data: _hasId });
+        } else return res.json({ success: false });
+      } catch (error) {
+        console.log(error);
+        return res.json({ success: false, message: "System error" });
+      }
+    }
+
     return res.json({ success: true, message: "Done", data: resData });
   } catch (error) {
     console.log(error);
