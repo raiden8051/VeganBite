@@ -4,8 +4,8 @@ import "./FloatingCart.css";
 
 function FloatingCart() {
   const dataContext = useContext(DataContext);
-  const totalPrice = dataContext?.totalPrice;
-  const cartItemsCount = dataContext?.cartItem.length;
+  const totalPrice = dataContext?.cart?.cartPrice;
+  const cartItemsCount = dataContext?.cart?.cartItems.length;
   return (
     <div className="bg-blue-500 flex p-5 items-center justify-between text-white  floating-cart-wrapper">
       <span className="item-price-count-wrapper flex gap-0">
