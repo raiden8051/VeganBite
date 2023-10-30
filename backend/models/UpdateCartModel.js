@@ -15,6 +15,10 @@ const UpdateCartModel = new Schema({
     type: Number,
     required: true,
   },
+  restaurantId: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("cart_items_masters", UpdateCartModel);

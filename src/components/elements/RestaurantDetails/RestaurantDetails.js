@@ -1,18 +1,24 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from "react";
 import "./RestaurantDetails.css";
 import iconVeg from "../../../assets/images/icon-veg.png";
 import DataContext from "../../../Context/DataContext";
-import { FecthData, isObjEmpty } from "../../utils/Utils";
+import {
+  fetchData,
+  getCartInfo,
+  handelDeleteCartItems,
+  handleUpdateCartItems,
+  isObjEmpty,
+} from "../../utils/Utils";
 import Navbar from "../../Navbar";
 import FloatingCart from "../FloatingCart/FloatingCart";
 function RestaurantDetails() {
   const dataContext = useContext(DataContext);
   const [currentRest, setCurrentRest] = useState({});
-  const userId = localStorage?.getItem("userId");
 
   useEffect(() => {
     if (isObjEmpty(dataContext.currentRest)) {
-      FecthData("http://localhost:3001/api/restaurants", "POST")
+      fetchData("http://localhost:3001/api/restaurants", "POST")
         .then((data) => {
           dataContext.setIsLoading(false);
           dataContext.setError([]);
@@ -28,61 +34,31 @@ function RestaurantDetails() {
       console.log(dataContext.currentRest);
       setCurrentRest(dataContext.currentRest);
     }
+
+    getCartInfo(dataContext);
   }, []);
 
-  const handleCartClick = (itemId) => {
-    dataContext.setCartItem((prev) => [...prev, itemId]);
+  const handleCartClick = (item) => {
+    let cartItems = dataContext.cart.cartItems;
+    let cartPrice = dataContext.cart.cartPrice;
+
+    cartItems = [...cartItems, item.f_id];
+
+    cartPrice += parseInt(item.price);
+    handleUpdateCartItems(dataContext, cartItems, cartPrice, currentRest?._id);
   };
 
-  useEffect(() => {
-    console.log(dataContext.cartItem);
-    if (dataContext.cartItem.length > 0) updateCartItems();
-  }, [dataContext.cartItem]);
+  const handleItemDelete = async (item) => {
+    let cartItems = dataContext.cart.cartItems;
+    let cartPrice = dataContext.cart.cartPrice;
 
-  const updateCartItems = async () => {
-    const response = await fetch("http://localhost:3001/api/updatecart", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: userId,
-        cartItems: dataContext.cartItem,
-      }),
+    cartItems = cartItems.filter((value) => {
+      return value !== item.f_id;
     });
-    const data = await response.json();
 
-    if (!data.success) alert("Something went wrong");
+    cartPrice -= parseInt(item.price);
 
-    if (data.success) {
-      // console.log(data);
-    }
-  };
-
-  const handleItemDelete = async (id) => {
-    let cd = dataContext.cartItem;
-    cd = cd.filter((value) => {
-      return value !== id;
-    });
-    dataContext.setCartItem(cd);
-
-    const response = await fetch("http://localhost:3001/api/updatecart", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: userId,
-        cartItems: cd,
-      }),
-    });
-    const data = await response.json();
-
-    if (!data.success) alert("Something went wrong");
-
-    if (data.success) {
-      // console.log(data);
-    }
+    handelDeleteCartItems(dataContext, cartItems, cartPrice, currentRest._id);
   };
 
   const [accordian, setActiveAccordain] = useState(-1);
@@ -174,60 +150,48 @@ function RestaurantDetails() {
                                 <span className="inner-food-img">
                                   <button
                                     className="text-green-500 accordian-add-button px-5 py-2"
-                                    disabled={dataContext.cartItem.includes(
-                                      currentRest?.menu[item][inneritem]["f_id"]
-                                    )}
-                                    onClick={() => {
-                                      handleCartClick(
+                                    disabled={
+                                      dataContext.cart.cartItems.includes(
                                         currentRest?.menu[item][inneritem][
                                           "f_id"
                                         ]
-                                      );
-                                      dataContext.setTotalPrice(
-                                        (prev) =>
-                                          parseInt(prev) +
-                                          parseInt(
-                                            currentRest?.menu[item][inneritem][
-                                              "price"
-                                            ]
-                                          )
+                                      ) &&
+                                      dataContext.cart.restaurantId ===
+                                        currentRest._id
+                                    }
+                                    onClick={() => {
+                                      handleCartClick(
+                                        currentRest?.menu[item][inneritem]
                                       );
                                     }}
                                   >
-                                    {dataContext.cartItem.includes(
+                                    {dataContext.cart.cartItems.includes(
                                       currentRest?.menu[item][inneritem]["f_id"]
-                                    )
+                                    ) &&
+                                    dataContext.cart.restaurantId ===
+                                      currentRest._id
                                       ? "In plate"
                                       : "Add to plate"}
                                   </button>
                                 </span>
-                                {dataContext.cartItem.includes(
+                                {dataContext.cart.cartItems.includes(
                                   currentRest?.menu[item][inneritem]["f_id"]
-                                ) && (
-                                  <button
-                                    onClick={() => {
-                                      handleItemDelete(
-                                        currentRest?.menu[item][inneritem][
-                                          "f_id"
-                                        ]
-                                      );
-                                      dataContext?.setTotalPrice(
-                                        (prev) =>
-                                          parseInt(prev) -
-                                          parseInt(
-                                            currentRest?.menu[item][inneritem][
-                                              "price"
-                                            ]
-                                          )
-                                      );
-                                    }}
-                                    className="delete-cart-item-button"
-                                  >
-                                    <span className="material-symbols-outlined">
-                                      delete
-                                    </span>
-                                  </button>
-                                )}
+                                ) &&
+                                  dataContext.cart.restaurantId ===
+                                    currentRest._id && (
+                                    <button
+                                      onClick={() => {
+                                        handleItemDelete(
+                                          currentRest?.menu[item][inneritem]
+                                        );
+                                      }}
+                                      className="delete-cart-item-button"
+                                    >
+                                      <span className="material-symbols-outlined">
+                                        delete
+                                      </span>
+                                    </button>
+                                  )}
                               </div>
                             );
                           }

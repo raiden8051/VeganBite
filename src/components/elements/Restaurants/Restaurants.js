@@ -5,10 +5,12 @@ import DataContext from "../../../Context/DataContext";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import "./Restaurants.css";
+import { handleCartChange } from "../../utils/Utils";
 
 export default function Restaurants() {
   const dataContext = useContext(DataContext);
   const restaurants = dataContext?.restaurants;
+
   const renderItems = (value, key) => {
     return (
       <div
@@ -41,9 +43,9 @@ export default function Restaurants() {
             to="/restaurants-details"
             className="inline-flex items-center w-full px-3 py-2 text-sm font-medium text-center bg-green-600 text-white cursor-pointer  rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             onClick={() => {
-              dataContext.setCurrentMenu(value.menu);
               localStorage.setItem("selectedRestaurantId", value._id);
               dataContext.setCurrentRest(value);
+              handleCartChange(value._id, dataContext);
             }}
           >
             Select
