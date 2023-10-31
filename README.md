@@ -17,7 +17,7 @@ Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
 
 ## `Frontend setup`
 
-In the root project directory:
+In the root project directory (In a new terminal other than backend):
 
 #### `npm run init-client`
 
