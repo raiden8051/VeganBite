@@ -17,6 +17,10 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "init-server": "cd backend && npm i",
+    "init-client": "npm i",
+    "server": "cd backend && nodemon index.js",
+    "client": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
