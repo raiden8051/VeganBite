@@ -2,14 +2,13 @@
 
 ## `Backend setup`
 
-Change directory to backend
-#### `cd backend`
+In the root project directory:
 
-And install all the node modules using
-#### `npm i`
+Use this command to init the backend server
+#### `npm run init-server`
 
-Then to run the server run this command
-#### `nodemon index.js`
+Then to run the server use this command
+#### `npm run server`
 
 You should see `Connection to database established` in the console which implies the database has been connected with the backend.
 
@@ -18,10 +17,12 @@ Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
 
 ## `Frontend setup`
 
-In the root project directory, you can run:
+In the root project directory:
 
-#### `npm i`
-#### `npm start`
+#### `npm run init-client`
+
+Then to run the client use this command
+#### `npm run client`
 
 It runs the app in the development mode.
 You can use the web application on [http://localhost:3000](http://localhost:3000)
