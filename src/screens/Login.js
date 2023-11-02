@@ -2,12 +2,16 @@
 import React, { useState } from "react";
 import logo from "../assets/images/logo_main.png";
 import { Link, json, useNavigate } from "react-router-dom";
+import "../App.css";
 
 export default function Login() {
   const [credential, setCredential] = useState({
     email: "",
     password: "",
   });
+
+  const [toggleShowPassword, setToggleShowPassword] = useState("password");
+
   let navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -72,7 +76,7 @@ export default function Login() {
                     onChange={handleChange}
                   />
                 </div>
-                <div>
+                <div className="relative">
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -80,7 +84,7 @@ export default function Login() {
                     Password
                   </label>
                   <input
-                    type="password"
+                    type={toggleShowPassword}
                     name="password"
                     id="password"
                     placeholder="••••••••"
@@ -89,6 +93,26 @@ export default function Login() {
                     value={credential.password}
                     onChange={handleChange}
                   />
+                  <span className="showPassword-span">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleShowPassword === "password"
+                          ? setToggleShowPassword("text")
+                          : setToggleShowPassword("password");
+                      }}
+                    >
+                      {toggleShowPassword === "password" ? (
+                        <span className="material-symbols-outlined text-lg text-gray-400">
+                          visibility
+                        </span>
+                      ) : (
+                        <span className="material-symbols-outlined text-lg text-white">
+                          visibility_off
+                        </span>
+                      )}
+                    </button>
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
