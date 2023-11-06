@@ -45,7 +45,6 @@ export default function Restaurants() {
             onClick={() => {
               localStorage.setItem("selectedRestaurantId", value._id);
               dataContext.setCurrentRest(value);
-              handleCartChange(value._id, dataContext);
             }}
           >
             Select

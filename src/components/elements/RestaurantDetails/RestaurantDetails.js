@@ -12,9 +12,11 @@ import {
 } from "../../utils/Utils";
 import Navbar from "../../Navbar";
 import FloatingCart from "../FloatingCart/FloatingCart";
+import CartPopup from "../CartPopup/CartPopup";
 function RestaurantDetails() {
   const dataContext = useContext(DataContext);
   const [currentRest, setCurrentRest] = useState({});
+  const [changeRestaurant, setChangeRestaurant] = useState(false);
 
   useEffect(() => {
     if (isObjEmpty(dataContext.currentRest)) {
@@ -160,9 +162,18 @@ function RestaurantDetails() {
                                         currentRest._id
                                     }
                                     onClick={() => {
+                                      if (
+                                        dataContext.cart.cartItems.length > 0 &&
+                                        dataContext.cart.restaurantId !=
+                                          currentRest._id
+                                      ) {
+                                        setChangeRestaurant(true);
+                                      }
+                                      // else {
                                       handleCartClick(
                                         currentRest?.menu[item][inneritem]
                                       );
+                                      // }
                                     }}
                                   >
                                     {dataContext.cart.cartItems.includes(
@@ -207,7 +218,12 @@ function RestaurantDetails() {
       ) : (
         "Server Issue"
       )}
-
+      {changeRestaurant && (
+        <CartPopup
+          changeRestaurant={changeRestaurant}
+          setChangeRestaurant={setChangeRestaurant}
+        />
+      )}
       <FloatingCart />
     </>
   );
