@@ -10,6 +10,8 @@ const DataProvider = ({ children }) => {
   const [cartItems, setCartItem] = useState([]);
   const [currentRest, setCurrentRest] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
   const [cart, setCart] = useState({
     cartItems: [],
     cartPrice: 0,
@@ -35,6 +37,10 @@ const DataProvider = ({ children }) => {
     setTotalPrice,
     cart,
     setCart,
+    latitude,
+    setLatitude,
+    longitude,
+    setLongitude,
   };
 
   return (

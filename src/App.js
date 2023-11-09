@@ -5,6 +5,7 @@ import Login from "./screens/Login";
 import Menu from "./screens/Menu";
 import Signup from "./screens/Signup";
 import RestaurantDetails from "./components/elements/RestaurantDetails/RestaurantDetails";
+import GetLocation from "./components/elements/GetLocation/GetLocation";
 
 function App() {
   console.log(
@@ -24,6 +25,7 @@ function App() {
             path="/restaurants-details"
             element={<RestaurantDetails />}
           />
+          <Route exact path="/get-location" element={<GetLocation />} />
         </Routes>
       </Router>
     </div>

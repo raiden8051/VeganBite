@@ -32,6 +32,12 @@ function Navbar() {
               Vegan Bite
             </span>
           </Link>
+          <Link to="/get-location" className="flex items-center">
+            {/* <img src={logo} className="h-8 mr-3" alt="Flowbite Logo" /> */}
+            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+              Choose location
+            </span>
+          </Link>
           <button
             data-collapse-toggle="navbar-default"
             type="button"
