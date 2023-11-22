@@ -1,0 +1,19 @@
+.locate-icon {
+  cursor: pointer;
+  padding: 8px;
+  background: white;
+  border-radius: 2px;
+  position: relative;
+  bottom: 227px;
+  margin-right: 10px;
+  float: right;
+  color: crimson;
+}
+.select-location-btn {
+  /* margin-top: auto; */
+}
+.map-container {
+  height: 100%;
+  padding: 20px;
+  background-color: #262626;
+}

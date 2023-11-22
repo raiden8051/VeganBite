@@ -23,6 +23,8 @@ app.use(express.json());
 app.use("/api", require("./Routes/CreateUser"));
 app.use("/api", require("./Routes/DisplayData"));
 app.use("/api", require("./Routes/UpdateCart"));
+app.use("/api", require("./Routes/UpdateAddress"));
+app.use("/api", require("./Routes/GetAddress"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -3,6 +3,7 @@ import logo from "../assets/images/logo_main.png";
 import { Link, useNavigate } from "react-router-dom";
 import DataContext from "../Context/DataContext";
 import "./styles.css";
+import { fetchData } from "./utils/Utils";
 
 function Navbar() {
   let navigate = useNavigate();
@@ -22,6 +23,41 @@ function Navbar() {
     }
   }, [search]);
 
+  useEffect(
+    () => {
+      getUserAddress();
+    },
+    [],
+    [dataContext]
+  );
+  let streetAddress = "";
+  dataContext.street?.map((el) => {
+    return (streetAddress = el + " ");
+  });
+  let userAddress =
+    dataContext?.city + " " + dataContext?.pin + " " + streetAddress;
+
+  const getUserAddress = () => {
+    if (localStorage.getItem("userId")) {
+      let id = localStorage.getItem("userId");
+
+      fetchData("http://localhost:3001/api/getaddress", "POST", { userId: id })
+        .then((data) => {
+          if (data.success) {
+            dataContext.setCountry(data.data.country);
+            dataContext.setState(data.data.state);
+            dataContext.setCity(data.data.city);
+            dataContext.setPin(data.data.pin);
+            dataContext.setStreet(data.data.street);
+          }
+        })
+        .catch((err) => {
+          // dataContext.setIsLoading(false);
+          dataContext?.setError(["Failed to load data. Check your connection"]);
+        });
+    }
+  };
+  console.log("123", dataContext);
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900 navbar-style">
@@ -30,6 +66,18 @@ function Navbar() {
             <img src={logo} className="h-8 mr-3" alt="Flowbite Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               Vegan Bite
+            </span>
+          </Link>
+          <Link to="/get-location" className="flex items-center">
+            {/* <img src={logo} className="h-8 mr-3" alt="Flowbite Logo" /> */}
+            <span className="nav-address-wrapper">
+              {" "}
+              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                Choose location
+              </span>
+              <span className="self-center text-sm  whitespace-nowrap dark:text-white">
+                {userAddress}
+              </span>
             </span>
           </Link>
           <button

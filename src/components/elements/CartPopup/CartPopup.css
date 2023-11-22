@@ -1,0 +1,13 @@
+.restaurant-change-popup {
+  color: #282c3f;
+  height: 240px;
+  width: 400px;
+  background-color: #fff;
+  border: 1px solid grey;
+  border-radius: 8px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* padding: 5px; */
+}

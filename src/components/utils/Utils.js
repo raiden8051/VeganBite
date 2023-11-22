@@ -42,39 +42,45 @@ export const getCartInfo = (dataContext) => {
   }
 };
 
-export const handleCartChange = async (_id, dataContext) => {
-  if (_id !== dataContext.cart.restaurantId) {
-    let answer = window.confirm(
-      "Changing restaurant will result in empty cart.\nClick Confirm if you want to change"
-    );
-    if (answer || !answer) {
-      const response = await fetch("http://localhost:3001/api/updatecart", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...dataContext.cart,
-          userId: localStorage.getItem("userId"),
-          cartItems: [],
-          cartPrice: 0,
-          restaurantId: "",
-        }),
-      });
-      const data = await response.json();
+export const handleCartChange = async (
+  // _id,
+  dataContext,
+  changeRestaurant,
+  confirmRestaurantChange
+) => {
+  // if (_id !== dataContext.cart.restaurantId) {
+  // setChangeRestaurant(true);
+  // let answer = window.confirm(
+  //   "Changing restaurant will result in empty cart.\nClick Confirm if you want to change"
+  // );
+  if (confirmRestaurantChange) {
+    const response = await fetch("http://localhost:3001/api/updatecart", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...dataContext.cart,
+        userId: localStorage.getItem("userId"),
+        cartItems: [],
+        cartPrice: 0,
+        restaurantId: "",
+      }),
+    });
+    const data = await response.json();
 
-      if (!data.success) alert("Something went wrong");
-      else {
-        dataContext.setCart((prev) => ({
-          ...prev,
-          userId: localStorage.getItem("userId"),
-          cartItems: data?.data?.cartItems,
-          cartPrice: data?.data?.cartPrice,
-          restaurantId: data?.data?.restaurantId,
-        }));
-      }
-    } else return;
-  }
+    if (!data.success) alert("Something went wrong");
+    else {
+      dataContext?.setCart((prev) => ({
+        ...prev,
+        userId: localStorage.getItem("userId"),
+        cartItems: data?.data?.cartItems,
+        cartPrice: data?.data?.cartPrice,
+        restaurantId: data?.data?.restaurantId,
+      }));
+    }
+  } else return;
+  // }
 };
 
 export const handleUpdateCartItems = async (

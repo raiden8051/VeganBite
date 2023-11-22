@@ -5,6 +5,8 @@ import Login from "./screens/Login";
 import Menu from "./screens/Menu";
 import Signup from "./screens/Signup";
 import RestaurantDetails from "./components/elements/RestaurantDetails/RestaurantDetails";
+import GetLocation from "./components/elements/GetLocation/GetLocation";
+import Cart from "./components/elements/Cart/Cart";
 
 function App() {
   console.log(
@@ -19,11 +21,13 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/menu" element={<Menu />} />
           <Route exact path="/createuser" element={<Signup />} />
+          <Route exact path="/cart" element={<Cart />} />
           <Route
             exact
             path="/restaurants-details"
             element={<RestaurantDetails />}
           />
+          <Route exact path="/get-location" element={<GetLocation />} />
         </Routes>
       </Router>
     </div>
