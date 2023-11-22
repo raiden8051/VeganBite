@@ -1,20 +1,24 @@
-.cart-notification-div{
-    background-color: green;
-    color: white;
-    font-weight: 700;
-    font-size: 10px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top: -26px;
-    right: -26px;
+.cart-notification-div {
+  background-color: green;
+  color: white;
+  font-weight: 700;
+  font-size: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -26px;
+  right: -26px;
 }
-.navbar-style{
-    /* position: fixed;
+.navbar-style {
+  /* position: fixed;
     margin-top: -20px; */
-    width: 100%;
+  width: 100%;
+}
+.nav-address-wrapper {
+  display: flex;
+  flex-direction: column;
 }

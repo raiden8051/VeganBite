@@ -48,7 +48,6 @@ export const handleCartChange = async (
   changeRestaurant,
   confirmRestaurantChange
 ) => {
-  console.log("gk-2 DATA ", dataContext);
   // if (_id !== dataContext.cart.restaurantId) {
   // setChangeRestaurant(true);
   // let answer = window.confirm(

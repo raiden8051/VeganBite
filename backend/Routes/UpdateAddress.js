@@ -8,6 +8,11 @@ router.put("/updateaddress", async (req, res) => {
     let userId = req.body.userId;
     let latitude = req.body.latitude;
     let longitude = req.body.longitude;
+    let country = req.body.country;
+    let state = req.body.state;
+    let city = req.body.city;
+    let pin = req.body.pin;
+    let street = req.body.street;
 
     let _hasId = await cartModel.findOne({ userId });
     let resData = {};
@@ -19,6 +24,11 @@ router.put("/updateaddress", async (req, res) => {
           userId: userId,
           latitude: latitude,
           longitude: longitude,
+          country: country,
+          state: state,
+          city: city,
+          pin: pin,
+          street: street,
         }
       );
     } else {
@@ -26,6 +36,11 @@ router.put("/updateaddress", async (req, res) => {
         userId: userId,
         latitude: latitude,
         longitude: longitude,
+        country: country,
+        state: state,
+        city: city,
+        pin: pin,
+        street: street,
       });
     }
 

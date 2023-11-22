@@ -12,6 +12,11 @@ const DataProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState([]);
+  const [pin, setPin] = useState("");
   const [cart, setCart] = useState({
     cartItems: [],
     cartPrice: 0,
@@ -41,6 +46,16 @@ const DataProvider = ({ children }) => {
     setLatitude,
     longitude,
     setLongitude,
+    country,
+    setCountry,
+    state,
+    setState,
+    city,
+    setCity,
+    street,
+    setStreet,
+    pin,
+    setPin,
   };
 
   return (
