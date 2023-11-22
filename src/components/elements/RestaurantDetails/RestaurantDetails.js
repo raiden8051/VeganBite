@@ -17,7 +17,6 @@ function RestaurantDetails() {
   const dataContext = useContext(DataContext);
   const [currentRest, setCurrentRest] = useState({});
   const [changeRestaurant, setChangeRestaurant] = useState(false);
-
   useEffect(() => {
     if (isObjEmpty(dataContext.currentRest)) {
       fetchData("http://localhost:3001/api/restaurants", "POST")
@@ -39,12 +38,14 @@ function RestaurantDetails() {
 
     getCartInfo(dataContext);
   }, []);
-
+  useEffect(() => {});
   const handleCartClick = (item) => {
+    console.log("sg-1", item);
     let cartItems = dataContext.cart.cartItems;
     let cartPrice = dataContext.cart.cartPrice;
 
-    cartItems = [...cartItems, item.f_id];
+    cartItems = [...cartItems, item];
+    console.log("sg-5", cartItems);
 
     cartPrice += parseInt(item.price);
     handleUpdateCartItems(dataContext, cartItems, cartPrice, currentRest?._id);
@@ -55,7 +56,7 @@ function RestaurantDetails() {
     let cartPrice = dataContext.cart.cartPrice;
 
     cartItems = cartItems.filter((value) => {
-      return value !== item.f_id;
+      return value !== item;
     });
 
     cartPrice -= parseInt(item.price);
@@ -154,9 +155,7 @@ function RestaurantDetails() {
                                     className="text-green-500 accordian-add-button px-5 py-2"
                                     disabled={
                                       dataContext.cart.cartItems.includes(
-                                        currentRest?.menu[item][inneritem][
-                                          "f_id"
-                                        ]
+                                        inneritem
                                       ) &&
                                       dataContext.cart.restaurantId ===
                                         currentRest._id
@@ -170,14 +169,12 @@ function RestaurantDetails() {
                                         setChangeRestaurant(true);
                                       }
                                       // else {
-                                      handleCartClick(
-                                        currentRest?.menu[item][inneritem]
-                                      );
+                                      handleCartClick(inneritem);
                                       // }
                                     }}
                                   >
                                     {dataContext.cart.cartItems.includes(
-                                      currentRest?.menu[item][inneritem]["f_id"]
+                                      inneritem
                                     ) &&
                                     dataContext.cart.restaurantId ===
                                       currentRest._id
@@ -186,15 +183,13 @@ function RestaurantDetails() {
                                   </button>
                                 </span>
                                 {dataContext.cart.cartItems.includes(
-                                  currentRest?.menu[item][inneritem]["f_id"]
+                                  inneritem
                                 ) &&
                                   dataContext.cart.restaurantId ===
                                     currentRest._id && (
                                     <button
                                       onClick={() => {
-                                        handleItemDelete(
-                                          currentRest?.menu[item][inneritem]
-                                        );
+                                        handleItemDelete(inneritem);
                                       }}
                                       className="delete-cart-item-button"
                                     >
