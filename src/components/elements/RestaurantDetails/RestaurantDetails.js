@@ -39,15 +39,16 @@ function RestaurantDetails() {
     getCartInfo(dataContext);
   }, []);
   useEffect(() => {});
-  const handleCartClick = (item) => {
-    console.log("sg-1", item);
+  const handleCartClick = (item, price) => {
+    console.log("sg-4", item);
     let cartItems = dataContext.cart.cartItems;
     let cartPrice = dataContext.cart.cartPrice;
-
-    cartItems = [...cartItems, item];
+    let obj1 = { name: item, quantity: 1 };
+    cartItems = [...cartItems, obj1];
+    // cartItems = [...cartItems, item];
     console.log("sg-5", cartItems);
 
-    cartPrice += parseInt(item.price);
+    cartPrice += parseInt(price);
     handleUpdateCartItems(dataContext, cartItems, cartPrice, currentRest?._id);
   };
 
@@ -72,6 +73,11 @@ function RestaurantDetails() {
     }
     setActiveAccordain(key);
   };
+  let dishNames = [];
+  dataContext.cart.cartItems.forEach((item) => {
+    console.log("gk-11", item.name);
+    dishNames.push(item.name);
+  });
   return (
     <>
       <Navbar />
@@ -154,9 +160,7 @@ function RestaurantDetails() {
                                   <button
                                     className="text-green-500 accordian-add-button px-5 py-2"
                                     disabled={
-                                      dataContext.cart.cartItems.includes(
-                                        inneritem
-                                      ) &&
+                                      dishNames.includes(inneritem) &&
                                       dataContext.cart.restaurantId ===
                                         currentRest._id
                                     }
@@ -169,22 +173,22 @@ function RestaurantDetails() {
                                         setChangeRestaurant(true);
                                       }
                                       // else {
-                                      handleCartClick(inneritem);
+                                      handleCartClick(
+                                        inneritem,
+                                        currentRest?.menu[item][inneritem]
+                                          ?.price
+                                      );
                                       // }
                                     }}
                                   >
-                                    {dataContext.cart.cartItems.includes(
-                                      inneritem
-                                    ) &&
+                                    {dishNames.includes(inneritem) &&
                                     dataContext.cart.restaurantId ===
                                       currentRest._id
                                       ? "In plate"
                                       : "Add to plate"}
                                   </button>
                                 </span>
-                                {dataContext.cart.cartItems.includes(
-                                  inneritem
-                                ) &&
+                                {dishNames.includes(inneritem) &&
                                   dataContext.cart.restaurantId ===
                                     currentRest._id && (
                                     <button

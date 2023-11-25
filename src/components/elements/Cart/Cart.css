@@ -1,0 +1,89 @@
+.cart-container {
+  background-color: rgb(38, 38, 38);
+  height: 100%;
+}
+.wrapper {
+  padding: 0 90px;
+}
+.cart-title {
+  background-color: #fff;
+  /* font-size: 1.43rem; */
+  position: sticky;
+  top: 0;
+  width: 100%;
+  font-weight: 700;
+  color: #3d4152;
+  text-transform: uppercase;
+  box-shadow: 0 15px 40px -20px rgb(255 255 255 / 66%);
+  text-transform: capitalize;
+}
+.cart-card {
+  /* height: 100px; */
+  justify-content: space-between;
+}
+.cart-address {
+  background-color: #fff;
+  /* background-color: #ffffffb8; */
+  height: max-content;
+  position: relative;
+  padding: 40px;
+}
+.address-title {
+  font-weight: 600;
+  color: #282c3f;
+  margin-bottom: 32px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.address-btn {
+  width: 170px;
+}
+.address-locate-icon {
+  color: #63656e;
+}
+.address-wrapper {
+  max-width: 350px;
+}
+.address-detail {
+  font-size: 13px;
+  color: #63656e;
+  margin-bottom: 8px;
+  font-weight: 300;
+  line-height: 16px;
+  overflow: hidden;
+}
+.dish-price {
+  font-size: 15px;
+  color: #535665;
+}
+.dish-name {
+  text-align: left;
+  width: 150px;
+}
+.bill-details {
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #282c3f;
+}
+.address-icon-wrapper {
+  background-color: #000;
+  /* background-color: #282c3f; */
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  left: -32px;
+  top: 30px;
+}
+.cart-item-button {
+  width: 90px;
+  display: flex;
+  color: green;
+  align-items: center;
+  border: 1px solid #d4d5d9;
+  font-size: 12px;
+  justify-content: space-between;
+  padding: 5px;
+}
